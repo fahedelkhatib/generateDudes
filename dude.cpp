@@ -132,6 +132,7 @@ private:
 	// male=true, female=false
 	bool gender; // do we want genders? not yet.
 	int attack, defense, agility, health;
+	bool alive;
 };
 
 RandomDude::RandomDude()

@@ -1,37 +1,37 @@
 #include <iostream>
 
-
-
 class battleArena
 {
-	public:
-		bool oneOnOne(RandomDude cont1, RandomDude cont2)
-		{
-			std::cout << "AT THE " + this->chooseName() + " ARENA, PRESENTING:\n";
-			std::cout << cont1.getFirstName() + " " + cont1.getLastName()
-				+ " VS " + cont2.getFirstName() + " " + cont2.getLastName() + "!\n\t";
+public:
+	bool oneOnOne(RandomDude cont1, RandomDude cont2);
 
-			int attack1 = cont1.getAttack();
-			int attack2 = cont2.getAttack();
-			if(attack1 > attack2)
-			{
-				std::cout << cont1.getFirstName() + " "
-					+ cont1.getLastName() + " wins!\n";
-				return true;
-			}
-			else
-			{
-				std::cout << cont2.getFirstName() + " "
-					+ cont2.getLastName() + " wins!\n";
-				return false;
-			}
-		}
-	private:
-		int result;
+private:
+	int result;
 
-		std::string chooseName();
-		
+	std::string chooseName();
 };
+
+bool battleArena::oneOnOne(RandomDude cont1, RandomDude cont2)
+{
+	std::cout << "AT THE " + this->chooseName() + " ARENA, PRESENTING:\n";
+	std::cout << cont1.getFirstName() + " " + cont1.getLastName() + " VS " + cont2.getFirstName() + " " + cont2.getLastName() + "!\n\t";
+
+	// check if attack hits
+	int agilityDiff = cont1.getAgility() - cont2.getAgility();
+	int avoidChance = 100;
+	if (agilityDiff > 0)
+	{
+		avoidChance = avoidChance - agilityDiff;
+	}
+	else
+	{
+		avoidChance = avoidChance;
+	}
+	// calculate damage based on attack - defense
+	// apply damage multipliers
+	// subtract damage from HP
+	// handle death
+}
 
 std::string battleArena::chooseName()
 {
@@ -45,9 +45,8 @@ std::string battleArena::chooseName()
 		"PEGASUS",
 		"PHARAOH'S",
 		"NIGHTS",
-		"RANCID ONIONS"
-	};
+		"RANCID ONIONS"};
 
-	int choice = generateNumber((sizeof(names)/sizeof(names[0])) - 1);
+	int choice = generateNumber((sizeof(names) / sizeof(names[0])) - 1);
 	return names[choice];
 }
