@@ -30,7 +30,7 @@ int main()
 		calculateAverages(10);
 	}
 	*/
-
+	/*
 	for (int i = 1; i < 4; ++i)
 	{
 		std::cout << "\n";
@@ -38,4 +38,8 @@ int main()
 		std::cout << dudes[i].getStats() << std::endl;
 		arena1.oneOnOne(dudes[i - 1], dudes[i]);
 	}
+	*/
+	RandomDude dude1 = RandomDude();
+	RandomDude dude2 = RandomDude();
+	arena1.oneOnOne(dude1, dude2);
 }

@@ -100,33 +100,56 @@ std::string generateLastName()
 	return names[choice];
 }
 
+
 class RandomDude
 {
 public:
 	RandomDude();
-
+	
+	//getters
 	std::string getFirstName() { return this->first_name; }
 	std::string getLastName() { return this->last_name; }
 	int getAge() { return this->age; }
 	bool getGender() { return this->gender; }
-
-	std::string greetingMessage()
-	{
-		return "I am " + this->getFirstName() + " " + this->getLastName() + ", " + intToString(this->getAge()) + ".";
-	}
-
 	int getAttack() { return this->attack; }
 	int getDefense() { return this->defense; }
 	int getAgility() { return this->agility; }
+	int getHealth() { return this->health; }
+	std::string getFullName();
+	bool isAlive() { return this->alive; }
+	
+	//setters
+	void die() 
+	{ 	
+		if(this->health < 1) 
+		{
+			this->alive = false;
+		}
+		std::cout << this->getFullName() + " has perished." << std::endl;	
+	}
+	void setHealth(int newHealth)
+	{
+		this->health = newHealth;
+	}
+	void setDamage(int damage)
+	{
+		this->setHealth(this->getHealth() - damage);
+		this->die();
+	}
 
+	//string outputs (for demos)
 	std::string getStats()
 	{
 		return "***" + this->getFirstName() + " " + this->getLastName() + "***\n\tATTACK: " + intToString(this->getAttack()) + "\tDEFENSE: " + intToString(this->getDefense()) + "\tAGILITY: " + intToString(this->getAgility()) + "\n";
 	}
 
+	std::string greetingMessage()
+	{
+		return "I am " + this->getFullName() + ", " + intToString(this->getAge()) + ".";
+	}
+
 private:
-	std::string first_name;
-	std::string last_name;
+	std::string first_name, last_name;
 	// from 0 to 99
 	int age;
 	// male=true, female=false
@@ -134,6 +157,11 @@ private:
 	int attack, defense, agility, health;
 	bool alive;
 };
+
+std::string RandomDude::getFullName()
+{
+	return this->getFirstName() + " " + this->getLastName();
+}
 
 RandomDude::RandomDude()
 {
@@ -145,4 +173,5 @@ RandomDude::RandomDude()
 	this->attack = generateNumber(500);
 	this->defense = generateNumber(500);
 	this->agility = generateNumber(500);
+	this->alive = true;
 }
