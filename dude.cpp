@@ -29,12 +29,25 @@ std::string intToString(int num)
 	}
 	// reverse char order in string and return
 	std::string oStrFr = "";
-	for (int i = 0; i < oStr.length(); ++i)
+	for (unsigned i = 0; i < oStr.length(); ++i)
 	{
 		oStrFr += oStr.at(oStr.length() - i - 1);
 	}
 
 	return oStrFr;
+}
+
+std::string strToUpper(std::string str)
+{
+	std::string tempStr = str;
+	for(unsigned i = 0; i < tempStr.length(); ++i)
+	{
+		if(tempStr.at(i) > 96 && tempStr.at(i) < 123)
+		{
+			tempStr.at(i) = tempStr.at(i) - 32;
+		}
+	}
+	return tempStr;
 }
 
 // depends on generateNumber()
@@ -62,7 +75,8 @@ std::string generateFirstName()
 		"Mario",
 		"Maham",
 		"Nathan",
-		"Junichi"};
+		"Junichi",
+		"Fortnite"};
 
 	int choice = generateNumber((sizeof(names) / sizeof(names[0]) - 1));
 	return names[choice];
@@ -105,7 +119,7 @@ class RandomDude
 {
 public:
 	RandomDude();
-	
+	~RandomDude();	
 	//getters
 	std::string getFirstName() { return this->first_name; }
 	std::string getLastName() { return this->last_name; }
@@ -140,12 +154,12 @@ public:
 	//string outputs (for demos)
 	std::string getStats()
 	{
-		return "***" + this->getFirstName() + " " + this->getLastName() + "***\n\tATTACK: " + intToString(this->getAttack()) + "\tDEFENSE: " + intToString(this->getDefense()) + "\tAGILITY: " + intToString(this->getAgility()) + "\n";
+		return "***" + strToUpper(this->greetingMessage()) + "***\n\tATTACK: " + intToString(this->getAttack()) + "\tDEFENSE: " + intToString(this->getDefense()) + "\tAGILITY: " + intToString(this->getAgility()) + "\n";
 	}
 
 	std::string greetingMessage()
 	{
-		return "I am " + this->getFullName() + ", " + intToString(this->getAge()) + ".";
+		return this->getFullName() + ", " + intToString(this->getAge());
 	}
 
 private:
@@ -174,4 +188,10 @@ RandomDude::RandomDude()
 	this->defense = generateNumber(500);
 	this->agility = generateNumber(500);
 	this->alive = true;
+}
+
+RandomDude::~RandomDude()
+{
+	delete this;
+
 }
