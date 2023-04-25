@@ -21,25 +21,12 @@ int main()
 		// std::cout << dudes[i].getStats() << std::endl;
 	}
 
-	battleArena arena1 = battleArena();
-	// arena1.oneOnOne(dudes[0], dudes[1]);
-
-	/*
-	for(int i = 0; i < 6; ++i)
-	{
-		calculateAverages(10);
-	}
-	*/
-	/*
-	for (int i = 1; i < 4; ++i)
-	{
-		std::cout << "\n";
-		std::cout << dudes[i - 1].getStats() << std::endl;
-		std::cout << dudes[i].getStats() << std::endl;
-		arena1.oneOnOne(dudes[i - 1], dudes[i]);
-	}
-	*/
-	RandomDude dude1 = RandomDude();
-	RandomDude dude2 = RandomDude();
-	arena1.oneOnOne(dude1, dude2);
+	battleArena *arena1 = new battleArena;
+	
+	RandomDude *dude1 = new RandomDude;
+	RandomDude *dude2 = new RandomDude;
+	RandomDude *dude3 = new RandomDude;
+	std::cout << dude1->getStats() << std::endl;
+	std::cout << dude2->getStats() << std::endl;
+	std::cout << arena1->oneOnOne(dude1, dude2) << std::endl;
 }

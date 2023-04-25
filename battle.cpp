@@ -3,10 +3,10 @@
 class battleArena
 {
 public:
-	std::string oneOnOne(RandomDude cont1, RandomDude cont2);
-	bool attack(RandomDude cont1, RandomDude cont2);
+	std::string oneOnOne(RandomDude* cont1, RandomDude* cont2);
+	bool attack(RandomDude* cont1, RandomDude* cont2);
 	bool checkIfAlive(RandomDude cont);
-	void proclaimWinner(RandomDude cont);
+	void proclaimWinner(RandomDude* cont);
 
 private:
 	int result;
@@ -14,34 +14,43 @@ private:
 	std::string chooseName();
 };
 
-std::string battleArena::oneOnOne(RandomDude cont1, RandomDude cont2)
+std::string battleArena::oneOnOne(RandomDude* cont1, RandomDude* cont2)
 {
+	std::cout << "AT THE " + this->chooseName() + "ARENA, PRESENTING:\n";
+	std::cout << cont1->getFullName() + " VS " + cont2->getFullName() + "!\n\t";
+
 	std::string winner = "LOOP EXITED"; //debug line
-	while(cont1.isAlive() && cont2.isAlive())
+	while(cont1->isAlive() == true && cont2->isAlive() == true)
 	{
+		std::cout << "attack 1" << std::endl;
 		this->attack(cont1, cont2);
-		if(!cont2.isAlive())
+
+		if(!(cont2->isAlive()))
 		{
-			return cont2.getFullName();
+			winner = cont2->getFullName();
 		}
 
+		std::cout << "attack 2" << std::endl;
 		this->attack(cont2, cont1);
-		if(!cont1.isAlive())
+
+		if(!(cont1->isAlive()))
 		{
-			return cont1.getFullName();
+			winner = cont1->getFullName();
 		}
+
+		
+		std::cout << "cont1 is " << cont1->isAlive() << std::endl
+			<< "cont2 is " << cont2->isAlive() << std::endl;
+		
+
 	}
 	return winner;
 }
 
-bool battleArena::attack(RandomDude cont1, RandomDude cont2)
+bool battleArena::attack(RandomDude* cont1, RandomDude* cont2)
 {
-	//CONT1 ATTACKING CONT2
-	std::cout << "AT THE " + this->chooseName() + " ARENA, PRESENTING:\n";
-	std::cout << cont1.getFirstName() + " " + cont1.getLastName() + " VS " + cont2.getFirstName() + " " + cont2.getLastName() + "!\n\t";
-
 	// check if attack hits, return false if doesn't hit
-	int agilityDiff = cont1.getAgility() - cont2.getAgility();
+	int agilityDiff = cont1->getAgility() - cont2->getAgility();
 	int avoidChance = 100;
 	if (agilityDiff > 0)
 	{
@@ -60,13 +69,13 @@ bool battleArena::attack(RandomDude cont1, RandomDude cont2)
 	// calculate damage based on attack - defense
 	
 	int damage = 50;
-	int attackMinusDefense = cont1.getAttack() - cont1.getDefense();
+	int attackMinusDefense = cont1->getAttack() - cont1->getDefense();
 	
 	int finalDamage = damage - (attackMinusDefense / 100);
 
 	// apply damage multipliers (might forego this)
 	// subtract damage from HP, handle death
-	cont2.setDamage(finalDamage);
+	cont2->setDamage(finalDamage);
 	return true; //true means the attack landed
 }
 
