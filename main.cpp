@@ -28,5 +28,5 @@ int main()
 	RandomDude *dude3 = new RandomDude;
 	std::cout << dude1->getStats() << std::endl;
 	std::cout << dude2->getStats() << std::endl;
-	std::cout << arena1->oneOnOne(dude1, dude2) << std::endl;
+	arena1->oneOnOne(dude1, dude2);
 }

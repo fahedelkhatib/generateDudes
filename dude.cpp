@@ -124,8 +124,8 @@ public:
 		if(this->health < 1) 
 		{
 			this->alive = 0;
+			std::cout << this->getFullName() + " has perished." << std::endl;
 		}
-		std::cout << this->getFullName() + " has perished." << std::endl;
 	}
 	void setHealth(int newHealth)
 	{

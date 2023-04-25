@@ -14,10 +14,15 @@ private:
 	std::string chooseName();
 };
 
+void battleArena::proclaimWinner(RandomDude* cont)
+{
+	std::cout << cont->getFullName() << " wins!!" << std::endl;
+}
+
 std::string battleArena::oneOnOne(RandomDude* cont1, RandomDude* cont2)
 {
-	std::cout << "AT THE " + this->chooseName() + "ARENA, PRESENTING:\n";
-	std::cout << cont1->getFullName() + " VS " + cont2->getFullName() + "!\n\t";
+	std::cout << "AT THE " + this->chooseName() + " ARENA, PRESENTING:\n";
+	std::cout << cont1->getFullName() + " VS " + cont2->getFullName() + "!\n";
 
 	std::string winner = "LOOP EXITED"; //debug line
 	while(cont1->isAlive() == true && cont2->isAlive() == true)
@@ -27,7 +32,9 @@ std::string battleArena::oneOnOne(RandomDude* cont1, RandomDude* cont2)
 
 		if(!(cont2->isAlive()))
 		{
-			winner = cont2->getFullName();
+			winner = cont1->getFullName();
+			this->proclaimWinner(cont1);
+			return winner;
 		}
 
 		std::cout << "attack 2" << std::endl;
@@ -35,13 +42,15 @@ std::string battleArena::oneOnOne(RandomDude* cont1, RandomDude* cont2)
 
 		if(!(cont1->isAlive()))
 		{
-			winner = cont1->getFullName();
+			winner = cont2->getFullName();
+			this->proclaimWinner(cont2);
+			return winner;
 		}
 
-		
+	/*	
 		std::cout << "cont1 is " << cont1->isAlive() << std::endl
 			<< "cont2 is " << cont2->isAlive() << std::endl;
-		
+	*/	
 
 	}
 	return winner;
@@ -56,27 +65,29 @@ bool battleArena::attack(RandomDude* cont1, RandomDude* cont2)
 	{
 		avoidChance = avoidChance - agilityDiff;
 	}
-	
 	else
 	{
 		avoidChance = avoidChance;
 	}
 
-	if(avoidChance < generateNumber(100)){
+	if(avoidChance < generateNumber(100))
+	{
 		return false; //false means the attack missed
 	}
-
-	// calculate damage based on attack - defense
+	else
+	{
+		// calculate damage based on attack - defense	
+		int damage = 50;
+		int attackMinusDefense = cont1->getAttack() - cont1->getDefense();
+		
+		int finalDamage = damage - (attackMinusDefense / 100);
 	
-	int damage = 50;
-	int attackMinusDefense = cont1->getAttack() - cont1->getDefense();
-	
-	int finalDamage = damage - (attackMinusDefense / 100);
-
-	// apply damage multipliers (might forego this)
-	// subtract damage from HP, handle death
-	cont2->setDamage(finalDamage);
-	return true; //true means the attack landed
+		// apply damage multipliers (might forego this)
+		// subtract damage from HP, handle death
+		cont2->setDamage(finalDamage);
+		return true; //true means the attack landed
+	}
+	return false;
 }
 
 bool battleArena::checkIfAlive(RandomDude cont)
