@@ -40,9 +40,9 @@ std::string intToString(int num)
 std::string strToUpper(std::string str)
 {
 	std::string tempStr = str;
-	for(unsigned i = 0; i < tempStr.length(); ++i)
+	for (unsigned i = 0; i < tempStr.length(); ++i)
 	{
-		if(tempStr.at(i) > 96 && tempStr.at(i) < 123)
+		if (tempStr.at(i) > 96 && tempStr.at(i) < 123)
 		{
 			tempStr.at(i) = tempStr.at(i) - 32;
 		}
@@ -114,13 +114,12 @@ std::string generateLastName()
 	return names[choice];
 }
 
-
 class RandomDude
 {
 public:
 	RandomDude();
-	~RandomDude();	
-	//getters
+	~RandomDude();
+	// getters
 	std::string getFirstName() { return this->first_name; }
 	std::string getLastName() { return this->last_name; }
 	int getAge() { return this->age; }
@@ -131,11 +130,11 @@ public:
 	int getHealth() { return this->health; }
 	std::string getFullName();
 	bool isAlive() { return this->alive; }
-	
-	//setters
-	void die() 
+
+	// setters
+	void die()
 	{
-		if(this->health < 1) 
+		if (this->health < 1)
 		{
 			this->alive = 0;
 			std::cout << this->getFullName() + " has perished." << std::endl;
@@ -151,7 +150,7 @@ public:
 		this->die();
 	}
 
-	//string outputs (for demos)
+	// string outputs (for demos)
 	std::string getStats()
 	{
 		return "***" + strToUpper(this->greetingMessage()) + "***\n\tATTACK: " + intToString(this->getAttack()) + "\tDEFENSE: " + intToString(this->getDefense()) + "\tAGILITY: " + intToString(this->getAgility()) + "\n";
@@ -193,5 +192,4 @@ RandomDude::RandomDude()
 RandomDude::~RandomDude()
 {
 	delete this;
-
 }
